@@ -55,7 +55,7 @@ class PointController {
     const trx = await connection.transaction();
 
     const point = {
-      image: 'image-fake',
+      image: 'https://media-cdn.tripadvisor.com/media/photo-s/15/d3/c2/93/popular-market.jpg',
       name,
       email,
       whatsapp,
@@ -70,7 +70,7 @@ class PointController {
     try {
 
       const insertIds = await trx('points').insert({
-        image: 'image-fake',
+        image: 'https://media-cdn.tripadvisor.com/media/photo-s/15/d3/c2/93/popular-market.jpg',
         name,
         email,
         whatsapp,
