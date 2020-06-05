@@ -17,7 +17,14 @@ class PointController {
       .distinct()
       .select('points.*')
 
-    return response.json(points)
+      const serializedPoints = points.map(point => {
+        return {
+          ...points,
+          image_url: `http://localhost:192.178.31.105:3333/uploads/${point.image}`
+        }
+      })
+
+    return response.json(serializedPoints)
   }
 
   async show(request: Request, response: Response): Promise<Response> {
@@ -29,13 +36,18 @@ class PointController {
       return response.status(400).json({ message: 'Point not found.' })
     }
 
+    const serializedPoints = {
+      ...point,
+      image_url: `http://localhost:192.178.31.105:3333/uploads/${point.image}`
+    }
+
     const items = await connection('items')
       .join('point_items', 'items.id', '=', 'point_items.item_id')
       .where('point_items.point_id', id)
       .select('title')
 
     return response.json({ 
-      point,
+      point: serializedPoints,
       items
     })
   }
@@ -55,7 +67,7 @@ class PointController {
     const trx = await connection.transaction();
 
     const point = {
-      image: 'https://media-cdn.tripadvisor.com/media/photo-s/15/d3/c2/93/popular-market.jpg',
+      image: request.file.filename,
       name,
       email,
       whatsapp,
@@ -69,33 +81,27 @@ class PointController {
 
     try {
 
-      const insertIds = await trx('points').insert({
-        image: 'https://media-cdn.tripadvisor.com/media/photo-s/15/d3/c2/93/popular-market.jpg',
-        name,
-        email,
-        whatsapp,
-        latitude,
-        longitude,
-        city,
-        uf
-      })
+      const insertIds = await trx('points').insert(point)
 
       const point_id = insertIds[0]
 
-      const pointItems = items.map((item_id: number) => {
-        return {
-          item_id,
-          point_id
-        }
+      const pointItems = items
+        .split(',')
+        .map((item: string) => Number(item.trim()))
+        .map((item_id: number) => {
+          return {
+            item_id,
+            point_id
+          }
       })
 
       await trx('point_items').insert(pointItems)
       id = point_id
+
+      await trx.commit();
     } catch (error) {
       return response.json({ message: error})
     }
-
-    await trx.commit();
 
     return response.json({
       id,
