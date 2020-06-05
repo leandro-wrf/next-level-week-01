@@ -10,14 +10,60 @@ import {
 } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
+import RNPickerSelect from 'react-native-picker-select';
+import axios from 'axios';
 
 import styles from './style';
+
+interface IBGEUFResponse {
+  sigla: string;
+}
+
+interface IBGECityResponse {
+  nome: string;
+}
+
+interface UfsCities {
+  label: string;
+  value: string;
+}
 
 const Home = () => {
   const [uf, setUf] = useState('');
   const [city, setCity] = useState('');
+  const [ufs, setUfs] = useState<UfsCities[]>([]);
+  const [cities, setCities] = useState<UfsCities[]>([]);
+
 
   const navigation = useNavigation()
+
+  useEffect(() => {
+    axios.get<IBGEUFResponse[]>('https://servicodados.ibge.gov.br/api/v1/localidades/estados')
+      .then(response => {
+        const initialUfs = response.data.map(uf => {
+          return {
+            label: uf.sigla,
+            value: uf.sigla
+          }
+        })
+        
+        setUfs(initialUfs)
+      })
+  }, [])
+
+  useEffect(() => {
+    axios.get<IBGECityResponse[]>(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${uf}/municipios`)
+      .then(response => {
+        const initialCities = response.data.map(city => {
+          return {
+            label: city.nome,
+            value: city.nome
+          }
+        })
+
+        setCities(initialCities)
+      })
+  }, [uf])
 
   function handleNavigationToPoinst() {
     navigation.navigate('Points', {
@@ -44,23 +90,23 @@ const Home = () => {
       </View>
 
       <View style={styles.footer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Digite a UF"
-          value={uf}
-          maxLength={2}
-          autoCapitalize="characters"
-          autoCorrect={false}
-          onChangeText={setUf}
-        />
+        <View style={styles.input}>
+          <RNPickerSelect
+            placeholder={{ label: 'Selecione UF', value: null }}
+            useNativeAndroidPickerStyle={true}
+            onValueChange={value => setUf(value)}
+            items={ufs}
+          />
+        </View>
 
-        <TextInput
-          style={styles.input}
-          placeholder="Digite a Cidade"
-          value={city}
-          autoCorrect={false}
-          onChangeText={setCity}
-        />
+        <View style={styles.input}>
+          <RNPickerSelect
+            placeholder={{ label: 'Selecione Cidade', value: null }}
+            useNativeAndroidPickerStyle={true}
+            onValueChange={value => setCity(value)}
+            items={cities}
+          />
+        </View>
 
         <RectButton style={styles.button} onPress={handleNavigationToPoinst}>
           <View style={styles.buttonIcon}>
