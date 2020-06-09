@@ -3,9 +3,7 @@
 backend/data/**/*
 backend/dist/**/*
 backend/node_modules/**/*
-backend/uploads/**/*
-!backend/uploads/.gitkeep
-!backend/data/.gitkeep
+backend/uploads/*.jpeg
 
 ## Frontend
 
