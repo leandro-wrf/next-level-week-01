@@ -24,7 +24,7 @@
   <img src="https://img.shields.io/badge/LICENSE-MIT-%231d1d1d?style=for-the-badge" />
 </p>
 
-<h3>Tecnologias utilizadas</h3>
+<h3>💻 Tecnologias utilizadas</h3>
 
 <ul>
   <li>TypeScript</li>
@@ -37,7 +37,7 @@
   <li>React Native Select Picker</li>
 </ul>
 
-<h3>Como usar este projeto</h3>
+<h3>🚀 Como usar este projeto</h3>
 
     # Clone este repósitório
     git clone https://github.com/leandro-wrf/next-level-week-01
@@ -57,7 +57,7 @@
     cd next-level-week-01 && yarn
     expo start
 
-<h3>O que obtive de conhecimento com este projeto</h3>
+<h3>🤓 O que obtive de conhecimento com este projeto</h3>
 
 <p align="justify">
   Vamos começar pela parte mais importante do projeto, o TypeScript, está linguagem de desenvolvimento me encheu os olhos de paixão😍 durante a está semana, fiquei encantado com tudo que ela pode entregar e como ela torna simples manter o código, além de torna o código muito mais legível e de fácil compreenssão.
@@ -75,6 +75,6 @@
   Está semana foi incrível e recheada de conteúdos novos. Valeu Rocketseat por tudo, agora é foco no estudos e vamos em frente!!(Ansioso👁👁 pela próxima edição).
 </p>
 
-<h3>LICENÇA</h3>
+<h3>📝Licença</h3>
 
 <p>Licença MIT.</p>
