@@ -44,13 +44,18 @@
 
     # Execute este projeto
     # backend
-    cd next-level-week-01 && yarn dev
+    cd next-level-week-01 && yarn
+    yarn knex migrate:latest
+    yarn seed:run
+    yarn dev
 
     # frontend
-    cd next-level-week-01 && yarn start
+    cd next-level-week-01 && yarn 
+    yarn start
 
     # mobile
-    cd next-level-week-01 && expo start
+    cd next-level-week-01 && yarn
+    expo start
 
 <h3>O que obtive de conhecimento com este projeto</h3>
 
