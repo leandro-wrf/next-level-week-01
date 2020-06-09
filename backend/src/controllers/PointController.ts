@@ -19,8 +19,8 @@ class PointController {
 
       const serializedPoints = points.map(point => {
         return {
-          ...points,
-          image_url: `http://localhost:192.178.31.105:3333/uploads/${point.image}`
+          ...point,
+          image_url: `http://192.178.31.105:3333/uploads/${point.image}`
         }
       })
 
@@ -38,7 +38,7 @@ class PointController {
 
     const serializedPoints = {
       ...point,
-      image_url: `http://localhost:192.178.31.105:3333/uploads/${point.image}`
+      image_url: `http://192.178.31.105:3333/uploads/${point.image}`
     }
 
     const items = await connection('items')

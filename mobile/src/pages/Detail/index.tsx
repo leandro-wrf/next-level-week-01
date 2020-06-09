@@ -39,7 +39,7 @@ const Detail = () => {
     api.get(`point/${routeParams.point_id}`).then(response => {
       setData(response.data);
     });
-  })
+  }, []);
 
   function handleNavigationBack() {
     navigation.goBack();

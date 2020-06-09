@@ -77,7 +77,7 @@ const Points = () => {
         items: selectedItems
       }
     }).then(response => {
-      setPoints(response.data)
+      setPoints(response.data);
     })
   }, [selectedItems])
 
@@ -131,7 +131,7 @@ const Points = () => {
                     latitude: point.latitude,
                     longitude: point.longitude
                   }} 
-                > 
+                >
                   <View style={styles.mapMarkerContainer}>
                     <Image 
                       style={styles.mapMarkerImage}
@@ -162,7 +162,7 @@ const Points = () => {
               onPress={() => handleSelectItem(item.id)}
               activeOpacity={0.6}
             >
-              <SvgUri  width={42} height={42} uri={item.image_url} />
+              <SvgUri width={42} height={42} uri={ item.image_url }/>
               <Text style={styles.itemTitle}>{item.title}</Text>
             </TouchableOpacity>
           ))}
